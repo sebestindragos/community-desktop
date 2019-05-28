@@ -1,0 +1,17 @@
+main.container
+  div.row
+    div.col-12.col-md-9.col-lg-6.mx-auto
+      div(*ngIf="hasLoaded")
+        header.text-center.my-3
+          div.profile-picture
+            i.fas.fa-user
+          h3 {{user.profile.firstname}} {{user.profile.lastname}}
+          div#buttons
+            button.btn.btn-sm.btn-primary(*ngIf="!isFriend", (click)="addFriend()") Connect
+            button.btn.btn-sm.btn-danger(*ngIf="isFriend", (click)="removeFriend()") Remove Friend
+        div(infinite-scroll, (scroll)="loadMore()")
+          h4 Activity
+          hr
+          wall-post-list([wallPosts]="wallPosts")
+          span.text-center(*ngIf="wallPosts.length === 0")
+            i.fas.fa-spinner.fa-spin

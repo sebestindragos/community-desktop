@@ -1,0 +1,19 @@
+main.container( community-json-ld, [schema]="SCHEMA" )
+  div.row
+    div.col-12.col-md-9.col-lg-6.mx-auto
+      ng-container(*ngTemplateOutlet="_tfPage")
+
+ng-template(#_tfPage)
+  h1.my-3.text-center Welcome to Community!
+  div(*ngIf="isLoggedIn$ | async", infinite-scroll, (scroll)="loadMore()")
+    h4 What's on your mind?
+    div.form-group
+      textarea.form-control(cols="5", [(ngModel)]="newPostText")
+      button.my-1.btn.btn-primary.btn-block.btn-small(
+        (click)="createPost()"
+      ) Post
+
+    h4 Latest news
+    hr
+    wall-post-list([wallPosts]="wallPosts")
+
